@@ -1,0 +1,15 @@
+create database batch42;
+
+use batch42;
+use world;
+show tables;
+
+select * from country;
+select * from city;
+select * from countrylanguage;
+
+select Language,CountryCode from countryLanguage;
+select Language from countryLanguage order by Language DESC limit 12;
+
+select Name as CountryName,population from country where population <=1000000 order by Name desc;
+select Name as CountryName from country where Name like 'z%_';
