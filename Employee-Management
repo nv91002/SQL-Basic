@@ -1,0 +1,79 @@
+create database employee_management;
+use employee_management;
+
+create table departments(
+department_id int auto_increment primary key,
+department_name varchar(100) not null
+);
+show tables;
+
+create table salaries(
+salary_id int auto_increment primary key,
+base_salary decimal(10,2) not null,
+bonus decimal(10,2)
+);
+
+create table employees(
+employee_id int auto_increment primary key,
+first_name varchar(50),
+last_name varchar(50),
+email varchar(100) unique,
+phone_number varchar(100),
+hire_date date,
+job_title varchar(50),
+department_id int,
+salary_id int,
+foreign key(department_id) references departments(department_id),
+foreign key(salary_id) references salaries(salary_id)
+);
+
+insert into departments (department_name) 
+values ('HR');
+insert into departments (department_name) 
+values ('Finance'),('Sales');
+insert into departments (department_name) 
+values ('Marketing');
+select * from departments;
+
+insert into salaries(base_salary,bonus) values 
+(50000,5000),
+(100000,10000),
+(60000,6000),
+(45000,4500);
+
+insert into employees(first_name,last_name,email,phone_number,hire_date ,job_title ,department_id ,salary_id ) values
+('Rohit','Sharma','rs@gmail.com','1234567890','2024-10-09','SE',4,3),
+('MS','Dhoni','msd@gmail.com','7777777777','2022-10-09','SE',4,2),
+('Virat','Kohli','vk@gmail.com','1818181818','2025-01-18','HR',1,1),
+('Yuvraj','Singh','ys@gmail.com','4444447890','2021-10-09','Sales Manager',3,3),
+('Virendra','Sehwag','vs@gmail.com ','1111111890','2020-10-09','Cashier',2,4);
+insert into employees(first_name,last_name,email,phone_number,hire_date ,job_title ,department_id ,salary_id ) values
+('Hardik','Pandya','hp@gmail.com','0000567890','2024-10-09','SE',null,3);
+delete from employees where email='hp@gmail.com';
+select * from employees;
+
+select first_name,last_name from employees;
+
+select employees.first_name,employees.last_name,departments.department_name from employees
+join departments on employees.department_id=departments.department_id;
+
+select e.first_name,e.last_name,d.department_name from employees e
+join departments d on e.department_id=d.department_id;
+select e.first_name,e.last_name,d.department_name from employees e
+inner join departments d on e.department_id=d.department_id;
+select e.first_name,e.last_name,d.department_name from employees e
+left join departments d on e.department_id=d.department_id;
+select e.first_name,e.last_name,d.department_name from employees e
+right join departments d on e.department_id=d.department_id;
+
+
+select e.first_name,e.last_name,s.base_salary,s.bonus from employees e
+join salaries s on e.salary_id=s.salary_id;
+
+select first_name,last_name,hire_date from employees
+where hire_date>='2022-10-09';
+
+select * from employees;
+update employees
+set department_id=5
+where employee_id=10;
